@@ -58,72 +58,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                hintText: 'Name',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
               ),
-              onChanged: (value) {
-                _name = value;
-              },
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                hintText: 'Email',
-              ),
-              onChanged: (value) {
-                _email = value;
-              },
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextField(
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Password',
-              ),
-              onChanged: (value) {
-                _password = value;
-              },
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            RoundedButton(
-              btnText: 'Create Account',
-              onButtonPressed: () => createAccountPressed(),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const LoginScreen(),
-                    ));
-              },
-              child: const Text(
-                'already have an account',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Name',
                 ),
+                onChanged: (value) {
+                  _name = value;
+                  },
               ),
-            )
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Email',
+                ),
+                onChanged: (value) {
+                  _email = value;
+                  },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              TextField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  hintText: 'Password',
+                ),
+                onChanged: (value) {
+                  _password = value;
+                  },
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              RoundedButton(
+                btnText: 'Create Account',
+                onButtonPressed: () => createAccountPressed(),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginScreen(),
+                      ));
+                  },
+                child: const Text(
+                  'already have an account',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
