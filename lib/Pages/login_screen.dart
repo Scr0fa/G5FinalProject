@@ -50,42 +50,53 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
+        body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your email',
+                    ),
+                    onChanged: (value) {
+                      _email = value;
+                      },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextField(
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your password',
+                    ),
+                    onChanged: (value) {
+                      _password = value;
+                      },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  RoundedButton(
+                    btnText: 'Login',
+                    onButtonPressed: () => loginPressed(),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  RoundedButton(
+                    btnText: 'Register',
+                    onButtonPressed: () => registerRoute(),
+                  )
+                ],
               ),
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email',
-                ),
-                onChanged: (value) {
-                  _email = value;
-                },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your password',
-                ),
-                onChanged: (value) {
-                  _password = value;
-                },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              RoundedButton(
-                btnText: 'LOG IN',
-                onButtonPressed: () => loginPressed(),
-              )
-            ],
-          ),
-        ));
+            )
+        )
+    );
   }
 }
