@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'Pages/register_screen.dart';
+import 'package:group5finalproject/Pages/landing_page.dart';
+import 'Pages/register_screen.dart'; //wala na ni cya
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RegisterScreen(),
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: LandingPage(),
+        ),
+      ),
     );
   }
 }
