@@ -46,86 +46,112 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          'Registration',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
+        body: SingleChildScrollView(
+            child: Container(
+              height: 900,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/login-bg.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(Colors.black, BlendMode.dstATop)
+                  )
               ),
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Name',
-                ),
-                onChanged: (value) {
-                  _name = value;
-                  },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                ),
-                onChanged: (value) {
-                  _email = value;
-                  },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: 'Password',
-                ),
-                onChanged: (value) {
-                  _password = value;
-                  },
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              RoundedButton(
-                btnText: 'Create Account',
-                onButtonPressed: () => createAccountPressed(),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const LoginScreen(),
-                      ));
-                  },
-                child: const Text(
-                  'already have an account',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
+              child: Stack(
+                  children: [
+                    Positioned(
+                        left: 20,
+                        top: 160,
+                        child: Container(
+                          width: 370,
+                          height: 600,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0x66ffffff),
+                          ),
+
+
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 200,
+                                ),
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Name',
+                                  ),
+                                  onChanged: (value) {
+                                    _name = value;
+                                    },
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Email',
+                                  ),
+                                  onChanged: (value) {
+                                    _email = value;
+                                    },
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                TextField(
+                                  obscureText: true,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Password',
+                                  ),
+                                  onChanged: (value) {
+                                    _password = value;
+                                    },
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                RoundedButton(
+                                  btnText: 'Create Account',
+                                  onButtonPressed: () => createAccountPressed(),
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                    },
+                                  child: const Text(
+                                    'already have an account?',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+
+                        )
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 180, 0, 0),
+                      width: double.infinity,
+                      child: SizedBox(
+                        width: 240,
+                        height: 200,
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ]
               )
-            ],
-          ),
-        ),
-      )
+            )
+        )
     );
   }
 }
