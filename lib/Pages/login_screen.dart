@@ -37,64 +37,92 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          elevation: 0,
-          title: const Text(
-            'Login',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+   return Scaffold(
         body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your email',
-                    ),
-                    onChanged: (value) {
-                      _email = value;
-                      },
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your password',
-                    ),
-                    onChanged: (value) {
-                      _password = value;
-                      },
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  RoundedButton(
-                    btnText: 'Login',
-                    onButtonPressed: () => loginPressed(),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+            child: Container(
+                height: 900,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/login-bg.png'),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(Colors.black, BlendMode.dstATop)
+                    )
+                ),
+                child: Stack(
+                    children: [
+                      Positioned(
+                          left: 20,
+                          top: 200,
+                          child: Container(
+                              width: 370,
+                              height: 600,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: const Color(0x66ffffff),
+                              ),
 
-                  RoundedButton(
-                    btnText: 'Register',
-                    onButtonPressed: () => registerRoute(),
-                  )
-                ],
-              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 260,
+                                    ),
+                                    TextField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter your email',
+                                      ),
+                                      onChanged: (value) {
+                                        _email = value;
+                                        },
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    TextField(
+                                      obscureText: true,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter your password',
+                                      ),
+                                      onChanged: (value) {
+                                        _password = value;
+                                        },
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    RoundedButton(
+                                      btnText: 'Login',
+                                      onButtonPressed: () => loginPressed(),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    RoundedButton(
+                                      btnText: 'Register',
+                                      onButtonPressed: () => registerRoute(),
+                                    )
+                                  ],
+                                ),
+                              )
+                          ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(0, 180, 0, 0),
+                        width: double.infinity,
+                        child: SizedBox(
+                          width: 240,
+                          height: 300,
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ]
+                )
             )
         )
     );
