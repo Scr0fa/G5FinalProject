@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const SizedBox(
                                       height: 260,
                                     ),
-                                    TextField(
+                                   TextField(
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: const InputDecoration(
                                         hintText: 'Enter your email',
