@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:group5finalproject/Pages/register_screen.dart';
 import 'package:http/http.dart' as http;
 import '../Services/auth_services.dart';
 import '../Services/globals.dart';
