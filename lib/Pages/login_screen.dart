@@ -34,6 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
       errorSnackBar(context, 'enter all required fields');
     }
   }
+  
+  void registerRoute() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const RegisterScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
