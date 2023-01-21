@@ -34,24 +34,24 @@ class _DetailsPageState extends State<DetailsPage> {
         centerTitle: true,
         title: const Text("My Diary"),
 
-          Padding(
+          actions: <Widget>[
+            Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: InkWell(
-                  onTap: () {
-                    Navigator.push (
-                        context,
-                        MaterialPageRoute(builder: (context) => const ProfilePage(),
-                    ));
+                    onTap: () {
+                      Navigator.push (
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen(),
+                          ));
 
                     },
-                  child: const CircleAvatar(child:
-                  Icon(Icons.person_rounded,
-                    color: Colors.black,
-                  size: 35))
+                    child: const CircleAvatar(child:
+                    Icon(Icons.person_rounded,
+                        color: Colors.black,
+                        size: 35))
 
                 )
             ),
-
           ]
       ),
       body:
