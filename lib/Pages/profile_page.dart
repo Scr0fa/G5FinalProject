@@ -1,301 +1,331 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:myapp/utils.dart';
+import 'ForgotPass.dart';
+import 'HomePage.dart';
 
-import 'package:group5finalproject/Pages/login_screen.dart';
-import 'package:group5finalproject/Pages/profileedit_page.dart';
+class SignIn extends StatelessWidget {
+  SignIn({super.key});
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  File? pfp;
-
+  final bool _validate = false;
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
     double size = MediaQuery.of(context).size.width / baseWidth;
     double sizes = size * 0.97;
-    return SizedBox(
-      width: double.infinity,
-      child: SizedBox(
-        width: double.infinity,
-        height: 800 * size,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            color: Color(0xff19191c),
-          ),
-          child: Stack(
+//----------------------------------------------------------------------
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: ListView(
             children: [
-              Positioned(
-                left: 0 * size,
-                top: 0 * size,
-                child: Container(
-                  width: 360 * size,
-                  height: 795.69 * size,
-                  decoration: const BoxDecoration(
-                    color: Color(0xffffffff),
-                  ),
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 800 * size,
                   child: Container(
                     width: double.infinity,
-                    height: 803 * size,
+                    height: double.infinity,
                     decoration: const BoxDecoration(
-                      color: Color(0xffffffff),
+                      color: Color(0x3f000000),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/app/images/login-bg.png',
+                        ),
+                      ),
                     ),
+                    //-----------------------------------------------------------------------
                     child: Stack(
                       children: [
                         Positioned(
-                          left: 0 * size,
-                          top: 26.9984436035 * size,
+                          left: 30 * size,
+                          top: 146 * size,
                           child: Align(
                             child: SizedBox(
-                              width: 360 * size,
-                              height: 360 * size,
-                              child: Image.asset(
-                                'assets/images/cover.png',
-                                fit: BoxFit.cover,
+                              width: 300 * size,
+                              height: 507 * size,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5 * size),
+                                  color: const Color(0x66ffffff),
+                                ),
                               ),
                             ),
                           ),
                         ),
+                      //-----------------------------------------------------------------------
                         Positioned(
-                          left: 0.0015258789 * size,
-                          top: 310 * size,
+                          left: 51 * size,
+                          top: 151 * size,
                           child: SizedBox(
-                            width: 360 * size,
-                            height: 450.62 * size,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0 * size,
-                                  top: 41.6922912598 * size,
-                                  child: Align(
-                                    child: SizedBox(
-                                      width: 360 * size,
-                                      height: 408.92 * size,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              31.3846111298 * size),
-                                          color: const Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 44 * size,
-                                  top: 97.0000019073 * size,
-                                  child: SizedBox(
-                                    width: 271 * size,
-                                    height: 127 * size,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              26 * size,
-                                              0 * size,
-                                              26 * size,
-                                              16 * size),
-                                          width: double.infinity,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * size,
-                                                    0 * size,
-                                                    0 * size,
-                                                    15 * size),
-                                                child: Text(
-                                                  '@dashtan',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 15 * sizes,
-                                                    fontWeight: FontWeight.w700,
-                                                    height: 1.5 * sizes / size,
-                                                    color:
-                                                    const Color(0xff000000),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                constraints: BoxConstraints(
-                                                  maxWidth: 219 * size,
-                                                ),
-                                                child: Text(
-                                                  'My name is dashtan , I like photography and travelling all around  the world  ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 11 * sizes,
-                                                    fontWeight: FontWeight.w400,
-                                                    height: 1.5 * sizes / size,
-                                                    color:
-                                                    const Color(0xff6c7a9c),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: double.infinity,
-                                          height: 40 * size,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                // frame4NzN (136:135)
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * size,
-                                                    0 * size,
-                                                    20 * size,
-                                                    0 * size),
-                                                child: TextButton(
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                            const ProfileEditPage()));
-                                                  },
-                                                  style: TextButton.styleFrom(
-                                                    padding: EdgeInsets.zero,
-                                                  ),
-                                                  child: Container(
-                                                    width: 146 * size,
-                                                    height: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xff0075ff),
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          50 * size),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: const Color(
-                                                              0x7f5790df),
-                                                          offset: Offset(
-                                                              0 * size,
-                                                              10 * size),
-                                                          blurRadius: 10 * size,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Edit Profile',
-                                                        textAlign:
-                                                        TextAlign.center,
-                                                        style: TextStyle(
-                                                          fontSize: 13 * sizes,
-                                                          fontWeight:
-                                                          FontWeight.w500,
-                                                          height: 1.5 *
-                                                              sizes /
-                                                              size,
-                                                          color: const Color(
-                                                              0xffffffff),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const LoginScreen()));
-                                                },
-                                                style: TextButton.styleFrom(
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                                child: Container(
-                                                  width: 105 * size,
-                                                  height: double.infinity,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                    const Color(0xffffffff),
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        50 * size),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: const Color(
-                                                            0x3f000000),
-                                                        offset: Offset(0 * size,
-                                                            10 * size),
-                                                        blurRadius: 10 * size,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Logout',
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 13 * sizes,
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                        height:
-                                                        1.5 * sizes / size,
-                                                        color: const Color(
-                                                            0xff000000),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 137.9999980927 * size,
-                                  top: 0 * size,
-                                  child: Align(
-                                    child: SizedBox(
-                                      width: 84 * size,
-                                      height: 84 * size,
-                                      child: Container(
-                                        // Dna (48831178)
-                                        margin: EdgeInsets.fromLTRB(0 * size,
-                                            0 * size, 0 * size, 0 * size),
-                                        width: double.infinity,
-                                        child: Center(
-                                          child: SizedBox(
-                                              width: double.infinity,
-                                              height: 131.44 * size,
-                                              child: pfp != null
-                                                  ? ClipOval(
-                                                child: Image.file(
-                                                  pfp!,
+                              width: 259 * size,
+                              height: 393 * size,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 306 * size,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            left: 0 * size,
+                                            top: 0 * size,
+                                            child: Align(
+                                              child: SizedBox(
+                                                width: 259 * size,
+                                                height: 264 * size,
+                                                child: Image.asset(
+                                                  'assets/app/images/logo.png',
                                                   fit: BoxFit.cover,
                                                 ),
-                                              )
-                                                  : const FlutterLogo()),
-                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: 14 * size,
+                                            top: 200 * size,
+                                            child: Container(
+                                              width: 244 * size,
+                                              height: 121 * size,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(4 * size),
+                                              ),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Container(
+                                                        margin: EdgeInsets.fromLTRB(0 * size,
+                                                            0 * size, 1 * size, 15 * size),
+                                                        width: 243 * size,
+                                                        decoration: BoxDecoration(
+                                                          color: const Color(0xffffffff),
+                                                          borderRadius:
+                                                          BorderRadius.circular(4 * size),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: const Color(0x3f000000),
+                                                              offset: Offset(0 * size, 0 * size),
+                                                              blurRadius: 1 * size,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: Form(
+                                                          key: _formKey,
+                                                          autovalidateMode: AutovalidateMode.onUserInteraction,
+
+                                                          child: TextFormField(
+                                                            controller: _emailController,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            decoration: InputDecoration(
+                                                              border: InputBorder.none,
+                                                              focusedBorder: InputBorder.none,
+                                                              enabledBorder: InputBorder.none,
+                                                              errorBorder: InputBorder.none,
+                                                              disabledBorder: InputBorder.none,
+                                                              contentPadding: EdgeInsets.fromLTRB(
+                                                                  9 * size,
+                                                                  6.5 * size,
+                                                                  9 * size,
+                                                                  6.5 * size),
+                                                              hintText: 'Email',
+                                                              errorText: _validate ? 'Email' : null,
+                                                              hintStyle: const TextStyle(
+                                                                  color: Color(0xff0075ff)),
+                                                            ),
+                                                            validator: (value) {
+                                                              return (value == '') ? 'Enter Email' : null;
+                                                            },
+                                                            style: SafeGoogleFont(
+                                                              'Poppins',
+                                                              fontSize: 12 * sizes,
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.5 * sizes / size,
+                                                              color: const Color(0xff000000),
+                                                            ),
+                                                          ),
+                                                        )
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.fromLTRB(
+                                                          0 * size, 0 * size, 1 * size, 3 * size),
+                                                      width: 243 * size,
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(0xffffffff),
+                                                        borderRadius:
+                                                        BorderRadius.circular(4 * size),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: const Color(0x3f000000),
+                                                            offset: Offset(0 * size, 0 * size),
+                                                            blurRadius: 1 * size,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: TextFormField(
+                                                        keyboardType: TextInputType.name,
+                                                        obscureText: true,
+                                                        decoration: InputDecoration(
+                                                          border: InputBorder.none,
+                                                          focusedBorder: InputBorder.none,
+                                                          enabledBorder: InputBorder.none,
+                                                          errorBorder: InputBorder.none,
+                                                          disabledBorder: InputBorder.none,
+                                                          contentPadding: EdgeInsets.fromLTRB(
+                                                              9 * size,
+                                                              6 * size,
+                                                              9 * size,
+                                                              6 * size),
+                                                          hintText: 'Password',
+                                                          hintStyle: const TextStyle(
+                                                              color: Color(0xff0075ff)),
+                                                        ),
+                                                        style: SafeGoogleFont(
+                                                          'Poppins',
+                                                          fontSize: 12 * sizes,
+                                                          fontWeight: FontWeight.w400,
+                                                          height: 1.5 * sizes / size,
+                                                          color: const Color(0xff000000),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed:  () async{
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(builder: (context) => const ForgotPass()
+                                                            )
+                                                        );
+                                                      },
+                                                      style:  TextButton.styleFrom (
+                                                        padding:  EdgeInsets.zero,
+                                                      ),
+                                                      child:
+                                                      Text(
+                                                        'Forgot password ?',
+                                                        style:  SafeGoogleFont (
+                                                          'Poppins',
+                                                          fontSize:  13*sizes,
+                                                          fontWeight:  FontWeight.w500,
+                                                          height:  1.5*sizes/size,
+                                                          fontStyle:  FontStyle.italic,
+                                                          color:  const Color(0xff0075ff),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                    //-------------------------------------------------------------
+                                    Expanded(
+                                      child: ListView(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.fromLTRB(12 * size, 16 * size, 3 * size, 0 * size),
+                                            width: double.infinity,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.fromLTRB(
+                                                      0 * size, 0 * size, 0 * size, 11 * size),
+                                                  child: TextButton(
+                                                    onPressed: () {},
+                                                    style: TextButton.styleFrom(
+                                                      padding: EdgeInsets.zero,
+                                                    ),
+                                                    child: Container(
+                                                      width: double.infinity,
+                                                      height: 36 * size,
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(0xff0075ff),
+                                                        borderRadius:
+                                                        BorderRadius.circular(25 * size),
+                                                      ),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.push(context,
+                                                              MaterialPageRoute(builder: (context) => const HomePage()
+                                                              )
+                                                          );
+                                                        },
+                                                        child: Text(
+                                                          'Login',
+                                                          style: SafeGoogleFont(
+                                                            'Poppins',
+                                                            fontSize: 16 * sizes,
+                                                            fontWeight: FontWeight.w500,
+                                                            height: 1.5 * sizes / size,
+                                                            color: const Color(0xffffffff),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin:  EdgeInsets.fromLTRB(0*size, 0*size, 1*size, 0*size),
+                                                  child:
+                                                  Text(
+                                                    'Or',
+                                                    style:  SafeGoogleFont (
+                                                      'Poppins',
+                                                      fontSize:  18*sizes,
+                                                      fontWeight:  FontWeight.w700,
+                                                      height:  1.5*sizes/size,
+                                                      color:  const Color(0xffffffff),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ]
+                              )
+                          ),
+                        ),
+                        //-----------------------------------------------------------------------
+                        Positioned(
+                          // component2D9T (1:516)
+                          left: 65 * size,
+                          top: 563 * size,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                            ),
+                            child: Container(
+                              width: 244 * size,
+                              height: 36 * size,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff0075ff),
+                                borderRadius: BorderRadius.circular(25 * size),
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                },
+                                child: Text(
+                                  'Create Account',
+                                  style: SafeGoogleFont(
+                                    'Poppins',
+                                    fontSize: 16 * sizes,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5 * sizes / size,
+                                    color: const Color(0xffffffff),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
@@ -303,42 +333,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 0 * size,
-                top: 0 * size,
-                child: SizedBox(
-                  width: 360 * size,
-                  height: 45 * size,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0 * size,
-                        top: 0 * size,
-                        child: SizedBox(
-                          width: 360 * size,
-                          height: 45 * size,
-                          child: Center(
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 45 * size,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Color(0xff0075ff),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              )
+            ]
+        )
     );
   }
 }
