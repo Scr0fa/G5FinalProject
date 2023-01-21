@@ -8,12 +8,13 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 360;
     double size = MediaQuery.of(context).size.width / baseWidth;
-    double sizes = size * 0.99;
+    double sizes = size *1;
+
     return SizedBox(
       width: double.infinity,
       child: SizedBox(
         width: double.infinity,
-        height: 650*size,
+        height: 850*size,
         child: Stack(
           children: [
             Positioned(
@@ -44,30 +45,29 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
             ),
-
             Positioned(
               left: 27*size,
               top: 120*size,
               child: SizedBox(
                 width: 206*size,
-                height: 150*size,
+                height: 300*size,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(0*size, 0*size, 0*size, 19*size),
+                      margin: EdgeInsets.fromLTRB(0*size, 0*size, 0*size, 25*size),
                       width: 142*size,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(0*size, 0*size, 0*size, 18*size),
+                            margin: EdgeInsets.fromLTRB(0*size, 0*size, 0*size, 30*size),
                             width: double.infinity,
                             child: Text(
                               'Welcome to',
                               textAlign: TextAlign.center,
                               style: TextStyle (
-                                fontSize: 22*sizes,
+                                fontSize: 25*sizes,
                                 fontWeight: FontWeight.w600,
                                 height: 1*sizes/size,
                                 letterSpacing: -0.4079999924*size,
@@ -76,11 +76,11 @@ class LandingPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'MyDay',
+                            '   MyDay',
                             style: TextStyle (
                               fontSize: 45*sizes,
                               fontWeight: FontWeight.w600,
-                              height: 0.5365853659*sizes/size,
+                              height: 0.2*sizes/size,
                               letterSpacing: -0.4079999924*size,
                               color: const Color(0xff0075ff),
                             ),
@@ -107,12 +107,12 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 281*size,
-              top: 588*size,
+              left: 250*size,
+              top: 650*size,
               child: Align(
                 child: SizedBox(
-                  width: 52*size,
-                  height: 62*size,
+                  width: 82*size,
+                  height: 82*size,
                   child: TextButton(
                     onPressed: () async{
                       Navigator.push(
@@ -125,7 +125,7 @@ class LandingPage extends StatelessWidget {
                       padding: EdgeInsets.zero,
                     ),
                     child: Icon(Icons.arrow_circle_right_sharp,
-                      size: 62*size,
+                      size: 75*size,
                     ),
 
                   ),
