@@ -1,341 +1,291 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/utils.dart';
-import 'ForgotPass.dart';
-import 'HomePage.dart';
+import 'package:flutter/services.dart';
+import 'package:group5finalproject/Pages/login_screen.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({super.key});
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
-  final bool _validate = false;
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  File? pfp;
+  File? background;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final pfp = await ImagePicker().pickImage(source: source);
+      if (pfp == null) return;
+
+      //final pfpTemp = File(pfp.path);
+      final permImage = await saveImagePerm(pfp.path);
+      setState(() => this.pfp = permImage);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveImagePerm(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final pfp = File('${directory.path}/$name');
+    return File(imagePath).copy(pfp.path);
+  }
+
+  Future bgPickImage(ImageSource source) async {
+    try {
+      final background = await ImagePicker().pickImage(source: source);
+      if (background == null) return;
+
+      //final pfpTemp = File(pfp.path);
+      final permBgImage = await saveBgPerm(background.path);
+      setState(() => this.background = permBgImage);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveBgPerm(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final pfp = File('${directory.path}/$name');
+    return File(imagePath).copy(pfp.path);
+  }
+
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 360;
+    double baseWidth = 360.0015258789;
     double size = MediaQuery.of(context).size.width / baseWidth;
     double sizes = size * 0.97;
-//----------------------------------------------------------------------
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: ListView(
+      appBar: AppBar(),
+      body: SizedBox(
+        width: double.infinity,
+        child: SizedBox(
+          width: double.infinity,
+          height: 800 * size,
+          child: Stack(
             children: [
-              SingleChildScrollView(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 800 * size,
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0x3f000000),
-                      image: DecorationImage(
+              Positioned(
+                left: 0 * size,
+                top: 0 * size,
+                child: Align(
+                  child: SizedBox(
+                      width: 360 * size,
+                      height: 360 * size,
+                      child: background != null
+                          ? Image.file(background!, fit: BoxFit.cover)
+                          : Image.asset(
+                        'assets/app/images/profilecover.jpg',
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/app/images/login-bg.png',
-                        ),
-                      ),
-                    ),
-                    //-----------------------------------------------------------------------
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: 30 * size,
-                          top: 146 * size,
-                          child: Align(
-                            child: SizedBox(
-                              width: 300 * size,
-                              height: 507 * size,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5 * size),
-                                  color: const Color(0x66ffffff),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      //-----------------------------------------------------------------------
-                        Positioned(
-                          left: 51 * size,
-                          top: 151 * size,
-                          child: SizedBox(
-                              width: 259 * size,
-                              height: 393 * size,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 306 * size,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            left: 0 * size,
-                                            top: 0 * size,
-                                            child: Align(
-                                              child: SizedBox(
-                                                width: 259 * size,
-                                                height: 264 * size,
-                                                child: Image.asset(
-                                                  'assets/app/images/logo.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 14 * size,
-                                            top: 200 * size,
-                                            child: Container(
-                                              width: 244 * size,
-                                              height: 121 * size,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(4 * size),
-                                              ),
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: <Widget>[
-                                                    Container(
-                                                        margin: EdgeInsets.fromLTRB(0 * size,
-                                                            0 * size, 1 * size, 15 * size),
-                                                        width: 243 * size,
-                                                        decoration: BoxDecoration(
-                                                          color: const Color(0xffffffff),
-                                                          borderRadius:
-                                                          BorderRadius.circular(4 * size),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color: const Color(0x3f000000),
-                                                              offset: Offset(0 * size, 0 * size),
-                                                              blurRadius: 1 * size,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        child: Form(
-                                                          key: _formKey,
-                                                          autovalidateMode: AutovalidateMode.onUserInteraction,
-
-                                                          child: TextFormField(
-                                                            controller: _emailController,
-                                                            keyboardType: TextInputType.emailAddress,
-                                                            decoration: InputDecoration(
-                                                              border: InputBorder.none,
-                                                              focusedBorder: InputBorder.none,
-                                                              enabledBorder: InputBorder.none,
-                                                              errorBorder: InputBorder.none,
-                                                              disabledBorder: InputBorder.none,
-                                                              contentPadding: EdgeInsets.fromLTRB(
-                                                                  9 * size,
-                                                                  6.5 * size,
-                                                                  9 * size,
-                                                                  6.5 * size),
-                                                              hintText: 'Email',
-                                                              errorText: _validate ? 'Email' : null,
-                                                              hintStyle: const TextStyle(
-                                                                  color: Color(0xff0075ff)),
-                                                            ),
-                                                            validator: (value) {
-                                                              return (value == '') ? 'Enter Email' : null;
-                                                            },
-                                                            style: SafeGoogleFont(
-                                                              'Poppins',
-                                                              fontSize: 12 * sizes,
-                                                              fontWeight: FontWeight.w400,
-                                                              height: 1.5 * sizes / size,
-                                                              color: const Color(0xff000000),
-                                                            ),
-                                                          ),
-                                                        )
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.fromLTRB(
-                                                          0 * size, 0 * size, 1 * size, 3 * size),
-                                                      width: 243 * size,
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(0xffffffff),
-                                                        borderRadius:
-                                                        BorderRadius.circular(4 * size),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: const Color(0x3f000000),
-                                                            offset: Offset(0 * size, 0 * size),
-                                                            blurRadius: 1 * size,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: TextFormField(
-                                                        keyboardType: TextInputType.name,
-                                                        obscureText: true,
-                                                        decoration: InputDecoration(
-                                                          border: InputBorder.none,
-                                                          focusedBorder: InputBorder.none,
-                                                          enabledBorder: InputBorder.none,
-                                                          errorBorder: InputBorder.none,
-                                                          disabledBorder: InputBorder.none,
-                                                          contentPadding: EdgeInsets.fromLTRB(
-                                                              9 * size,
-                                                              6 * size,
-                                                              9 * size,
-                                                              6 * size),
-                                                          hintText: 'Password',
-                                                          hintStyle: const TextStyle(
-                                                              color: Color(0xff0075ff)),
-                                                        ),
-                                                        style: SafeGoogleFont(
-                                                          'Poppins',
-                                                          fontSize: 12 * sizes,
-                                                          fontWeight: FontWeight.w400,
-                                                          height: 1.5 * sizes / size,
-                                                          color: const Color(0xff000000),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed:  () async{
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(builder: (context) => const ForgotPass()
-                                                            )
-                                                        );
-                                                      },
-                                                      style:  TextButton.styleFrom (
-                                                        padding:  EdgeInsets.zero,
-                                                      ),
-                                                      child:
-                                                      Text(
-                                                        'Forgot password ?',
-                                                        style:  SafeGoogleFont (
-                                                          'Poppins',
-                                                          fontSize:  13*sizes,
-                                                          fontWeight:  FontWeight.w500,
-                                                          height:  1.5*sizes/size,
-                                                          fontStyle:  FontStyle.italic,
-                                                          color:  const Color(0xff0075ff),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                      )),
+                ),
+              ),
+              Positioned(
+                left: 315 * size,
+                top: 30 * size,
+                child: Align(
+                  child: SizedBox(
+                      width: 24.69 * size,
+                      height: 24 * size,
+                      child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet<void>(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: const Icon(Icons.image),
+                                        title:
+                                        const Text('Pick Image In Gallery'),
+                                        onTap: () {
+                                          bgPickImage(ImageSource.gallery);
+                                          Navigator.of(context).pop(context);
+                                        },
                                       ),
-                                    ),
-                                    //-------------------------------------------------------------
-                                    Expanded(
-                                      child: ListView(
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.fromLTRB(12 * size, 16 * size, 3 * size, 0 * size),
-                                            width: double.infinity,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      0 * size, 0 * size, 0 * size, 11 * size),
-                                                  child: TextButton(
-                                                    onPressed: () {},
-                                                    style: TextButton.styleFrom(
-                                                      padding: EdgeInsets.zero,
-                                                    ),
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      height: 36 * size,
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(0xff0075ff),
-                                                        borderRadius:
-                                                        BorderRadius.circular(25 * size),
-                                                      ),
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.push(context,
-                                                              MaterialPageRoute(builder: (context) => const HomePage()
-                                                              )
-                                                          );
-                                                        },
-                                                        child: Text(
-                                                          'Login',
-                                                          style: SafeGoogleFont(
-                                                            'Poppins',
-                                                            fontSize: 16 * sizes,
-                                                            fontWeight: FontWeight.w500,
-                                                            height: 1.5 * sizes / size,
-                                                            color: const Color(0xffffffff),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin:  EdgeInsets.fromLTRB(0*size, 0*size, 1*size, 0*size),
-                                                  child:
-                                                  Text(
-                                                    'Or',
-                                                    style:  SafeGoogleFont (
-                                                      'Poppins',
-                                                      fontSize:  18*sizes,
-                                                      fontWeight:  FontWeight.w700,
-                                                      height:  1.5*sizes/size,
-                                                      color:  const Color(0xffffffff),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                      ListTile(
+                                        leading: const Icon(Icons.camera),
+                                        title: const Text('Use Camera'),
+                                        onTap: () {
+                                          bgPickImage(ImageSource.camera);
+                                          Navigator.of(context).pop(context);
+                                        },
                                       ),
-                                    ),
-                                  ]
-                              )
-                          ),
-                        ),
-                        //-----------------------------------------------------------------------
-                        Positioned(
-                          // component2D9T (1:516)
-                          left: 65 * size,
-                          top: 563 * size,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                            ),
-                            child: Container(
-                              width: 244 * size,
-                              height: 36 * size,
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff0075ff),
-                                borderRadius: BorderRadius.circular(25 * size),
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Colors.blue,
+                                  border: Border.all(
+                                      color: Colors.blue
+                                  )
                               ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                },
-                                child: Text(
-                                  'Create Account',
-                                  style: SafeGoogleFont(
-                                    'Poppins',
-                                    fontSize: 16 * sizes,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5 * sizes / size,
-                                    color: const Color(0xffffffff),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                              )
+                          )
+                      )),
+                ),
+              ),
+              Positioned(
+                left: 0.0015258789 * size,
+                top: 320 * size,
+                child: Align(
+                  child: SizedBox(
+                    width: 360 * size,
+                    height: 448 * size,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(31.3846111298 * size),
+                        color: const Color(0xffffffff),
+                      ),
                     ),
                   ),
                 ),
-              )
-            ]
-        )
+              ),
+              Positioned(
+                left: 122.0015258789 * size,
+                top: 406 * size,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()
+                        )
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Container(
+                    width: 113 * size,
+                    height: 37 * size,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff0075ff),
+                      borderRadius: BorderRadius.circular(20 * size),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                          fontSize: 11.0500001907 * sizes,
+                          fontWeight: FontWeight.w500,
+                          height: 1.5 * sizes / size,
+                          color: const Color(0xffffffff),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 138.0015258789 * size,
+                top: 370 * size,
+                child: Align(
+                  child: SizedBox(
+                    width: 82 * size,
+                    height: 23 * size,
+                    child: Text(
+                      '@dashtan',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15 * sizes,
+                        fontWeight: FontWeight.w700,
+                        height: 1.5 * sizes / size,
+                        color: const Color(0xff000000),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 138.0015258789 * size,
+                top: 280 * size,
+                child: Align(
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: const Icon(Icons.image),
+                                  title: const Text('Pick Image In Gallery'),
+                                  onTap: () {
+                                    pickImage(ImageSource.gallery);
+                                    Navigator.of(context).pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.camera),
+                                  title: const Text('Use Camera'),
+                                  onTap: () {
+                                    pickImage(ImageSource.camera);
+                                    Navigator.of(context).pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    },
+                    child: SizedBox(
+                      width: 84 * size,
+                      height: 84 * size,
+                      child: pfp != null
+                          ? ClipOval(
+                        child: Image.file(
+                          pfp!,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : const CircleAvatar(
+                        backgroundImage: AssetImage(
+                            'assets/app/images/defaultprofile.png'),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 190 * size,
+                top: 333 * size,
+                child: Align(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.blue,
+                        border: Border.all(width: 5, color: Colors.blue)),
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
