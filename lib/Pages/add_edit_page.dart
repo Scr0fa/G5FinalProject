@@ -166,12 +166,21 @@ class _AddEditPageState extends State<AddEditPage> {
 
   }
   void showSuccessMessage(String message){
-    final snackBar = SnackBar(content: Text(message));
+    final snackBar = SnackBar(
+        content: Text(message,
+            style: const TextStyle(
+                color: Colors.green)
+        )
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
   void showErrorMessage(String message){
-    final snackBar = SnackBar(content: Text(message));
+    final snackBar = SnackBar(
+        content: Text(message,
+            style: const TextStyle(
+                color: Colors.redAccent)
+        )
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
 }
