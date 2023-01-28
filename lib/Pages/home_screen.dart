@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:group5finalproject/Pages/add_edit_page.dart';
-import 'package:group5finalproject/Pages/diary_details_page.dart';
+import 'package:group5finalproject/Pages/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'diary_details_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
 
   bool isLoading = true;
   List items = [];
@@ -28,7 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: const Text("My Diary")
+            title: const Text("My Diary"),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.white
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfilePage()));
+                },
+                child: const Text("Profile"),
+
+              ),
+            ]
         ),
         body:Container(
           height: 900,
@@ -40,68 +57,68 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           child: RefreshIndicator(
-              onRefresh: fetchTodo,
-                child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      final item = items[index] as Map;
-                      final id = items[index]['_id'] as String;
-                      return
-                        Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                            decoration: const BoxDecoration(color: Color.fromARGB(90, 50, 40, 100)),
-                            child: Column(
-                                children: [
-                                  ListTile(
-                                    leading: Text('${index + 1}', style:
-                                    const TextStyle(
+            onRefresh: fetchTodo,
+            child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index] as Map;
+                  final id = items[index]['_id'] as String;
+                  return
+                    Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                        decoration: const BoxDecoration(color: Color.fromARGB(90, 50, 40, 100)),
+                        child: Column(
+                            children: [
+                              ListTile(
+                                leading: Text('${index + 1}', style:
+                                const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                                title: Text(items[index]['title'],
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white)),
-                                    title: Text(items[index]['title'],
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)),
 
-                                    //subtitle: Text(items[index]['description']),
-                                    trailing: PopupMenuButton(
-                                      onSelected: (value) {
-                                        if(value == 'edit'){
-                                          navigateToEditTodo(item);
-                                        } else if(value == 'delete'){
-                                          deleteById(id);
-                                        }
-                                      },
-                                      itemBuilder: (context) {
-                                        return [
-                                          const PopupMenuItem(
-                                            value: 'edit',
-                                            child: Icon(Icons.edit_rounded, color: Colors.green,),
-                                          ),
-                                          const PopupMenuItem(
-                                            value: 'delete',
-                                            child: Icon(Icons.delete_rounded, color: Colors.red),
-                                          ),
-                                        ];
-                                      },
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => DetailsDiary(todo: items[index]))
-                                      );
-                                    },
-                                  ),
-                                ]
-                            )
-                        );
-                    }),
-              ),
-            ),
+                                //subtitle: Text(items[index]['description']),
+                                trailing: PopupMenuButton(
+                                  onSelected: (value) {
+                                    if(value == 'edit'){
+                                      navigateToEditTodo(item);
+                                    } else if(value == 'delete'){
+                                      deleteById(id);
+                                    }
+                                  },
+                                  itemBuilder: (context) {
+                                    return [
+                                      const PopupMenuItem(
+                                        value: 'edit',
+                                        child: Icon(Icons.edit_rounded, color: Colors.green,),
+                                      ),
+                                      const PopupMenuItem(
+                                        value: 'delete',
+                                        child: Icon(Icons.delete_rounded, color: Colors.red),
+                                      ),
+                                    ];
+                                  },
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Diarydetails(todo: items[index]))
+                                  );
+                                },
+                              ),
+                            ]
+                        )
+                    );
+                }),
+          ),
+        ),
 
 
         floatingActionButton: FloatingActionButton.extended(

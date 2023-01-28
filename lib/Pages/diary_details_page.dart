@@ -11,20 +11,18 @@ import 'dart:io';
 File? imgFile;
 String? imgPath;
 
-class DetailsDiary extends StatefulWidget {
+class Diarydetails extends StatefulWidget {
   final dynamic todo;
 
-
-  const DetailsDiary({Key? key, this.todo}) : super(key: key);
+  const Diarydetails({Key? key, this.todo}) : super(key: key);
 
   @override
-  State<DetailsDiary> createState() => _DetailsDiaryState();
+  State<Diarydetails> createState() => _DiarydetailsState();
 }
 
-class _DetailsDiaryState extends State<DetailsDiary> {
+class _DiarydetailsState extends State<Diarydetails> {
   final double coverHeight = 280;
   final double profileHeight = 144;
-
 
   bool isLoading = true;
   List items = [];
@@ -34,15 +32,16 @@ class _DetailsDiaryState extends State<DetailsDiary> {
     // TODO: implement initState
     super.initState();
     getData();
-    fetchDiary();
+    fetchTodo();
   }
+
   @override
   Widget build(BuildContext context) {
-    // final top = coverHeight - profileHeight / 2;
-    // final bottom = profileHeight / 2;
+    final top = coverHeight - profileHeight / 2;
+    final bottom = profileHeight / 2;
 
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           centerTitle: true,
           title: const Text("My Diary"),
           actions: <Widget>[
@@ -52,88 +51,74 @@ class _DetailsDiaryState extends State<DetailsDiary> {
                     onTap: () {
                       getImg();
                     },
-                    child: const
-                    Icon(Icons.image_outlined,
-                        color: Colors.green,
-                        size: 35)
-                )
+                    child: const Icon(Icons.image_outlined,
+                        color: Colors.green, size: 35))),
+          ],
+        ),
+        body: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                if (imgPath != null)
+                  Expanded(
+                      child: Image.file(File(imgPath!),
+                          width: double.infinity,
+                          height: coverHeight,
+                          fit: BoxFit.cover)),
+              ],
             ),
-            Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: InkWell(
-                    onTap: () {
-                      deleteData();
-                    },
-                    child: const
-                    Icon(Icons.delete_rounded,
-                        color: Colors.red,
-                        size: 35,
-                    ),
+            const SizedBox(height: 30),
+            Column(
+              children: [
+                columnTitle(
+                  "Title",
+                  widget.todo['title'],
                 ),
+                columnDescription("Description", widget.todo["description"])
+              ],
             ),
           ],
-      ),
-        body: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    if( imgPath != null )
-                      Expanded(
-                          child: Image.file(File(imgPath!),
-                              width: double.infinity,
-                              height: coverHeight,
-                              fit: BoxFit.cover)
-                      ),
-                  ],
-              ),
-              const SizedBox(height: 30),
-              Column(
-                children: [
-                  columnTitle("Title", widget.todo['title'],),
-                  columnDescription("Description", widget.todo["description"])
-                ],
-              ),
-
-
-            ],
-        )
-    );
+        ));
   }
-
-
 
   Widget columnTitle(String title, dynamic value) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-
       children: [
         const SizedBox(height: 1),
-        Text(value.toString(), style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-        ),),
+        Text(
+          value.toString(),
+          style: const TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
+
   Widget columnDescription(String description, dynamic value) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-
       children: [
         const SizedBox(height: 50),
-        Text(value.toString(), style: const TextStyle(
-          fontSize: 20,
-          //fontWeight: FontWeight.bold,
-        ),),
+        Text(
+          value.toString(),
+          style: const TextStyle(
+            fontSize: 20,
+            //fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
-  Future <void> fetchDiary() async {
+
+  Future<void> fetchTodo() async {
     const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
@@ -149,6 +134,7 @@ class _DetailsDiaryState extends State<DetailsDiary> {
       isLoading = false;
     });
   }
+
   void navigateToEditPage(Map item) async {
     final route = MaterialPageRoute(
       builder: (context) => AddEditPage(todo: item),
@@ -158,54 +144,47 @@ class _DetailsDiaryState extends State<DetailsDiary> {
       isLoading = true;
       showSuccessMessage('Updated successfully');
     });
-    fetchDiary();
+    fetchTodo();
   }
-
 
   Future<void> deleteById(String id) async {
     final url = 'https://api.nstack.in/v1/todos/$id';
     final uri = Uri.parse(url);
     final response = await http.delete(uri);
 
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       final filtered = items.where((element) => element['_id'] != id).toList();
-      setState((){
-        items = filtered;
-        showSuccessMessage('delete successfully');
-
-      });
-
-    }else {
+      setState(
+        () {
+          items = filtered;
+          showSuccessMessage('delete successfully');
+        },
+      );
+    } else {
       showErrorMessage('Unable to delete');
     }
+  }
 
-  }
-  void showSuccessMessage(String message){
+  void showSuccessMessage(String message) {
     final snackBar = SnackBar(
-        content: Text(message,
-            style: const TextStyle(
-                color: Colors.green)
-        )
-    );
+        content: Text(message, style: const TextStyle(color: Colors.green)));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-  void showErrorMessage(String message){
+
+  void showErrorMessage(String message) {
     final snackBar = SnackBar(
-        content: Text(message,
-            style: const TextStyle(
-                color: Colors.redAccent)
-        )
-    );
+        content:
+            Text(message, style: const TextStyle(color: Colors.redAccent)));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
   // get image from gallery
   void getImg() async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if( pickedImage != null )
-    {
-      saveData(pickedImage.path.toString());   // path cache
-      setState(()
-      {
+    final pickedImage =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      saveData(pickedImage.path.toString()); // path cache
+      setState(() {
         imgFile = File(pickedImage.path);
       });
     }
@@ -219,8 +198,7 @@ class _DetailsDiaryState extends State<DetailsDiary> {
 
   void getData() async {
     final sharedPref = await SharedPreferences.getInstance();
-    setState(()
-    {
+    setState(() {
       imgPath = sharedPref.getString('path');
     });
   }
