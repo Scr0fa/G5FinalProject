@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group5finalproject/Pages/login_screen.dart';
-
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -82,9 +81,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: background != null
                           ? Image.file(background!, fit: BoxFit.cover)
                           : Image.asset(
-                        'assets/app/images/profilecover.jpg',
-                        fit: BoxFit.cover,
-                      )),
+                              'assets/app/images/profilecover.jpg',
+                              fit: BoxFit.cover,
+                            )),
                 ),
               ),
               Positioned(
@@ -92,53 +91,51 @@ class _ProfilePageState extends State<ProfilePage> {
                 top: 30 * size,
                 child: Align(
                   child: SizedBox(
-                      width: 24.69 * size,
-                      height: 24 * size,
-                      child: InkWell(
-                          onTap: () {
-                            showModalBottomSheet<void>(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: const Icon(Icons.image),
-                                        title:
-                                        const Text('Pick Image In Gallery'),
-                                        onTap: () {
-                                          bgPickImage(ImageSource.gallery);
-                                          Navigator.of(context).pop(context);
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: const Icon(Icons.camera),
-                                        title: const Text('Use Camera'),
-                                        onTap: () {
-                                          bgPickImage(ImageSource.camera);
-                                          Navigator.of(context).pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });
+                    width: 24.69 * size,
+                    height: 24 * size,
+                    child: InkWell(
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: const Icon(Icons.image),
+                                  title: const Text('Pick Image In Gallery'),
+                                  onTap: () {
+                                    bgPickImage(ImageSource.gallery);
+                                    Navigator.of(context).pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.camera),
+                                  title: const Text('Use Camera'),
+                                  onTap: () {
+                                    bgPickImage(ImageSource.camera);
+                                    Navigator.of(context).pop(context);
+                                  },
+                                ),
+                              ],
+                            );
                           },
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: Colors.blue,
-                                  border: Border.all(
-                                      color: Colors.blue
-                                  )
-                              ),
-                              child: const Icon(
-                                Icons.camera_alt,
-                                color: Colors.white,
-                              )
-                          )
-                      )),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.blue,
+                            border: Border.all(color: Colors.blue)),
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -151,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius:
-                        BorderRadius.circular(31.3846111298 * size),
+                            BorderRadius.circular(31.3846111298 * size),
                         color: const Color(0xffffffff),
                       ),
                     ),
@@ -166,9 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()
-                        )
-                    );
+                            builder: (context) => const LoginScreen()));
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -202,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 82 * size,
                     height: 23 * size,
                     child: Text(
-                      '@dashtan',
+                      '@group5',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15 * sizes,
@@ -221,47 +216,48 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: InkWell(
                     onTap: () {
                       showModalBottomSheet<void>(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: const Icon(Icons.image),
-                                  title: const Text('Pick Image In Gallery'),
-                                  onTap: () {
-                                    pickImage(ImageSource.gallery);
-                                    Navigator.of(context).pop(context);
-                                  },
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.camera),
-                                  title: const Text('Use Camera'),
-                                  onTap: () {
-                                    pickImage(ImageSource.camera);
-                                    Navigator.of(context).pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          });
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: const Icon(Icons.image),
+                                title: const Text('Pick Image In Gallery'),
+                                onTap: () {
+                                  pickImage(ImageSource.gallery);
+                                  Navigator.of(context).pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.camera),
+                                title: const Text('Use Camera'),
+                                onTap: () {
+                                  pickImage(ImageSource.camera);
+                                  Navigator.of(context).pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: SizedBox(
                       width: 84 * size,
                       height: 84 * size,
                       child: pfp != null
                           ? ClipOval(
-                        child: Image.file(
-                          pfp!,
-                          fit: BoxFit.cover,
-                        ),
-                      )
+                              child: Image.file(
+                                pfp!,
+                                fit: BoxFit.cover,
+                              ),
+                            )
                           : const CircleAvatar(
-                        backgroundImage: AssetImage(
-                            'assets/app/images/defaultprofile.png'),
-                      ),
+                              backgroundImage: AssetImage(
+                                  'assets/app/images/defaultprofile.png'),
+                            ),
                     ),
                   ),
                 ),

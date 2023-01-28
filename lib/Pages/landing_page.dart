@@ -127,7 +127,6 @@ class LandingPage extends StatelessWidget {
                     child: Icon(Icons.arrow_circle_right_sharp,
                       size: 75*size,
                     ),
-
                   ),
                 ),
               ),

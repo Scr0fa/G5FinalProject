@@ -5,15 +5,14 @@ import 'package:http/http.dart' as http;
 import '../Services/auth_services.dart';
 import '../Services/globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../rounded_button.dart';
+import '../utility/rounded_button.dart';
 import 'home_screen.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -43,7 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => const HomeScreen(),
-        ));
+        )
+    );
   }
 
   void registerRoute() {

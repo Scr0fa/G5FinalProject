@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group5finalproject/Pages/add_edit_page.dart';
-import 'package:group5finalproject/Pages/diary_details.dart';
+import 'package:group5finalproject/Pages/diary_details_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -58,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     leading: Text('${index + 1}', style:
                                     const TextStyle(
                                         fontSize: 20,
-
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white)),
                                     title: Text(items[index]['title'],
@@ -93,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => DetailsPage(todo: items[index]))
+                                              builder: (context) => DetailsDiary(todo: items[index]))
                                       );
                                     },
                                   ),

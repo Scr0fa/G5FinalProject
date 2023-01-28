@@ -1,19 +1,16 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:group5finalproject/Services/auth_services.dart';
+import 'package:group5finalproject/utility/rounded_button.dart';
 import '../Services/globals.dart';
-import '../rounded_button.dart';
 import 'home_screen.dart';
-import 'login_screen.dart';
 import 'package:http/http.dart' as http;
-
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -23,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   createAccountPressed() async {
     bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        r"^[a-zA-Z\d.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(_email);
     if (emailValid) {
       http.Response response =
@@ -69,8 +66,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderRadius: BorderRadius.circular(5),
                             color: const Color(0x66ffffff),
                           ),
-
-
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Column(
@@ -113,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   height: 40,
                                 ),
                                 RoundedButton(
-                                  btnText: 'Create Account',
+                                  buttonText: 'Create Account',
                                   onButtonPressed: () => createAccountPressed(),
                                 ),
                                 const SizedBox(
@@ -133,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ],
                             ),
                           ),
-
                         )
                     ),
                     Container(

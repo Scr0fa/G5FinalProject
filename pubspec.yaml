@@ -32,7 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
     
-  image_picker: ^0.8.6
+  image_picker: ^0.8.6+1
   profile: ^0.0.1
   permission_handler: ^9.2.0
   image: ^4.0.10
